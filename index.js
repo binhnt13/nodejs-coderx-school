@@ -11,7 +11,8 @@ app.set('views', './views');
 
 let users = [
     { id: 1, name: 'binh' },
-    { id: 2, name: 'anh' }
+    { id: 2, name: 'anh' },
+    { id: 3, name: 'anh2' },
 ]
 
 app.get('/', (req, res) => res.render('index', {
