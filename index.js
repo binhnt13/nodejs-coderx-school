@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
+const shortid = require('shortid')
 const adapter = new FileSync('db.json')
 const db = low(adapter)
 
@@ -17,7 +18,6 @@ app.set('views', './views');
 db.defaults({ users: [] })
   .write();
 let users = db.get('users').value();
-console.log(users)
 
 app.get('/', (req, res) => res.render('index', {
     name: 'aaa'
@@ -32,10 +32,16 @@ app.get('/users/search', (req, res) => {
 });
 
 app.get('/users/create', (req, res) => res.render('users/create'));
+
+app.get('/users/:id', (req, res) => {
+    const id = req.params.id;
+    const user = db.get('users').find({ id }).value()
+    res.render('users/view', { user });
+})
+
 app.post('/users/create', (req, res) => {
-    db.get('users')
-        .push(req.body)
-        .write()
+    req.body.id = shortid.generate();
+    db.get('users').push(req.body).write();
     res.redirect('/users');
 });
 
