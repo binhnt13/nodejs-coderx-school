@@ -17,13 +17,6 @@ module.exports.userId = (req, res) => {
     res.render('users/view', { user });
 };
 module.exports.postCreate = (req, res) => {
-    let errors = [];
-    if(!req.body.name) errors.push('Name is require!');
-    if(!req.body.phone) errors.push('Phone is require!');
-    if(errors.length) {
-        res.render('users/create', { errors, values: req.body });
-        return;
-    }
     req.body.id = shortid.generate();
     db.get('users').push(req.body).write();
     res.redirect('/users');
