@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get('/', controller.index);
 
+router.get('/cookie', controller.cookie);
+
 router.get('/search', controller.search);
 
 router.get('/create', controller.create);
