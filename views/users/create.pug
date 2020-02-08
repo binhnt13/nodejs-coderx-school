@@ -1,5 +1,18 @@
-h1 Create
-form(action="/users/create", method="POST")
-    label Name
-    input(name= "name", type= "text")
-    button Create
+extends ../layouts/common
+
+block content
+    .mt-2.ml-5
+        h1 Create
+        if errors
+            each error in errors
+                .alert.alert-danger= error
+        form(action="/users/create", method="POST")
+            label.mr-5(for="name") Name
+            .d-block
+            input#name(name= "name", type= "text", value= values ? values.name : "")
+            .d-block.mt-3
+            label.mr-5(for="phone") Phone
+            .d-block
+            input#phone(name= "phone", type= "text", value= values ? values.phone : "")
+            .d-block.mt-2
+            button.btn.btn-primary.ml-2 Create
