@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const userRouter = require('./routes/user.route');
@@ -10,7 +12,7 @@ const port = 3000;
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser('awdawrwreeref'));
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.set('view engine', 'pug');
 app.set('views', './views');
